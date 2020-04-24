@@ -25,8 +25,6 @@ public class TestMVPActivity extends BaseActivity<TestView, TestPresenter> imple
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        getActivityComponent().inject(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_mvp);
         final EditText etUserName = findViewById(R.id.et_user_name);
@@ -51,8 +49,13 @@ public class TestMVPActivity extends BaseActivity<TestView, TestPresenter> imple
         return presenter;
     }
 
+    @Override
+    public void injectIndependies() {
+        getActivityComponent().inject(this);
+    }
 
-      @Override
+
+    @Override
     public void showMessage(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
