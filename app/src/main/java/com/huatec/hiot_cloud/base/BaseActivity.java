@@ -57,10 +57,6 @@ public abstract class BaseActivity <V extends BaseView, P extends BasePresenter>
         super.onResume();
     }
 
-
-
-
-
     public ActivityComponent getActivityComponent() {
         if (null == mActivityComponent) {
             mActivityComponent = DaggerActivityComponent.builder()
