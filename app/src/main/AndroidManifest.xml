@@ -9,18 +9,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/hiotapp"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".test.lifecycletest.TestLifeCycleActivity">
+        android:theme="@style/AppTheme.NoAction">
+        <activity android:name=".ui.main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".test.mvptest.TestMVPActivity">
+        <activity android:name=".test.lifecycletest.TestLifeCycleActivity" />
+        <activity android:name=".test.mvptest.TestMVPActivity" />
+        <activity android:name=".ui.main.MainActivity">
 
         </activity>
-        <activity android:name=".main.MainActivity" />
     </application>
 
 </manifest>

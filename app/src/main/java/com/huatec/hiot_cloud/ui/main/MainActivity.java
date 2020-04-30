@@ -1,17 +1,14 @@
-package com.huatec.hiot_cloud.main;
+package com.huatec.hiot_cloud.ui.main;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.huatec.hiot_cloud.R;
-import com.huatec.hiot_cloud.base.BaseActivity;
-import com.huatec.hiot_cloud.base.BasePresenter;
+import com.huatec.hiot_cloud.ui.base.BaseActivity;
+import com.huatec.hiot_cloud.ui.base.BasePresenter;
 import com.huatec.hiot_cloud.utils.Constans;
 
 //实验2.1
@@ -22,7 +19,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final ViewPager vpMain = findViewById(R.id.vp_main);
-        vpMain.setAdapter(new MainViewPagerAdapter());
+        vpMain.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
         vpMain.setOffscreenPageLimit(Constans.MAIN_FRAGMENT_COUNT);
         RadioGroup rgMain = findViewById(R.id.rg_main);
         rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {

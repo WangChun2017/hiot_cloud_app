@@ -1,8 +1,6 @@
 package com.huatec.hiot_cloud.test.mvptest;
 
-import android.widget.Toast;
-
-import com.huatec.hiot_cloud.base.BasePresenter;
+import com.huatec.hiot_cloud.ui.base.BasePresenter;
 import com.huatec.hiot_cloud.test.dagger2Test.ThirdObj;
 import com.huatec.hiot_cloud.test.mvptest.model.User;
 

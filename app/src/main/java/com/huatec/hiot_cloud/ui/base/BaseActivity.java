@@ -1,4 +1,4 @@
-package com.huatec.hiot_cloud.base;
+package com.huatec.hiot_cloud.ui.base;
 
 import android.app.Application;
 import android.os.Bundle;
@@ -29,7 +29,10 @@ public abstract class BaseActivity <V extends BaseView, P extends BasePresenter<
         super.onCreate(savedInstanceState);
         injectIndependies();
         presenter = createPresenter();
-        presenter.setView((V)this);
+        if(presenter != null){
+            presenter.setView((V)this);
+        }
+
     }
     public abstract P createPresenter();
 

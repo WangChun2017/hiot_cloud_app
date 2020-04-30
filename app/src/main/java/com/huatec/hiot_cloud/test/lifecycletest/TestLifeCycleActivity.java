@@ -3,14 +3,12 @@ package com.huatec.hiot_cloud.test.lifecycletest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.huatec.hiot_cloud.R;
-import com.huatec.hiot_cloud.main.MainActivity;
 import com.huatec.hiot_cloud.test.mvptest.TestMVPActivity;
 
 public class TestLifeCycleActivity extends AppCompatActivity {
