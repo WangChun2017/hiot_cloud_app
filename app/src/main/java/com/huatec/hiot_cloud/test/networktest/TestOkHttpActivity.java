@@ -23,7 +23,7 @@ import okhttp3.Response;
 public class TestOkHttpActivity extends AppCompatActivity {
 
 
-    //private static  final String  baseUrl= "https://www.baidu.com";
+//    private static  final String  baseUrl= "https://www.baidu.com";
     private static  final String  baseUrl= "http://114.67.88.191:8080/";
     private static final String TAG = "TestOkHttpActivity";
 
@@ -57,7 +57,7 @@ public class TestOkHttpActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login("wangchun","abc123","app");
+                login("","","");
             }
         });
         //获取用户信息
@@ -65,7 +65,7 @@ public class TestOkHttpActivity extends AppCompatActivity {
         btnGetUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getUserInfo("ef583d8bc9da49c8884b620ba4e4d6c4_5b5d49507d994ea082cfa70a51b67d82_use");
+                getUserInfo("");
             }
         });
         //更改邮箱账号
@@ -73,7 +73,7 @@ public class TestOkHttpActivity extends AppCompatActivity {
         btnUpdateEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateEmail("ef583d8bc9da49c8884b620ba4e4d6c4_5b5d49507d994ea082cfa70a51b67d82_use","27325@qq.com");
+                updateEmail("","");
             }
         });
     }
