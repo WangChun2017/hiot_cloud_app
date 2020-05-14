@@ -1,7 +1,5 @@
 package com.huatec.hiot_cloud.test.networktest;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -10,13 +8,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.huatec.hiot_cloud.R;
-import com.huatec.hiot_cloud.data.NetService;
-import com.huatec.hiot_cloud.test.mvptest.model.User;
+import com.huatec.hiot_cloud.data.NetworkService;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -27,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class TextRxJavaActivity extends AppCompatActivity {
 
     private Retrofit retrofit;
-    private NetService service;
+    private NetworkService service;
     private final static String TAG = "TextRxJavaActivity";
     private EditText etToken;
     private String email;
@@ -109,15 +107,27 @@ public class TextRxJavaActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ResultBase<UserBean> resultBase) {
-                        if (resultBase != null && resultBase.getStatus() == 200 && resultBase.getData() != null) {
-                            Toast.makeText(TextRxJavaActivity.this, "创建成功", Toast.LENGTH_SHORT).show();
-                            UserBean userBean = resultBase.getData();
-                            String str = String.format("用户: %s, 邮箱: %s",
-                                    userBean.getUsername(), userBean.getEmail());
-                            Toast.makeText(TextRxJavaActivity.this, str, Toast.LENGTH_SHORT).show();
-                            email = userBean.getEmail();
+                        //第二种
+                        if (resultBase != null && resultBase.getData() != null) {
+                            //第一种
+//                        if (resultBase != null && resultBase.getStatus() == 200 && resultBase.getData() != null) {
+                            //第二种
+                            UserBean newusererBean = resultBase.getData();
+                            String userstr = String.format("用户: %s, 邮箱: %s",
+                                    newusererBean.getUsername(), newusererBean.getEmail());
+                            Toast.makeText(TextRxJavaActivity.this, userstr, Toast.LENGTH_SHORT).show();
+                            //第一种
+//                            Toast.makeText(TextRxJavaActivity.this, "创建成功", Toast.LENGTH_SHORT).show();
+//                            UserBean userBean = resultBase.getData();
+//                            String str = String.format("用户: %s, 邮箱: %s",
+//                                    userBean.getUsername(), userBean.getEmail());
+//                            Toast.makeText(TextRxJavaActivity.this, str, Toast.LENGTH_SHORT).show();
+//                            email = userBean.getEmail();
                         } else if (resultBase != null && TextUtils.isEmpty(resultBase.getMsg()) || resultBase.getStatus() != 200) {
+                            //第二种
                             Toast.makeText(TextRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT).show();
+//                          第一种
+//                            Toast.makeText(TextRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -147,22 +157,19 @@ public class TextRxJavaActivity extends AppCompatActivity {
         service.updateEmail(authorization, emails)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<ResultBase<UserBean>>() {
+                .subscribe(new Observer<ResultBase<String>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(ResultBase<UserBean> resultBase) {
-                        if (resultBase != null && resultBase.getData() != null &&
-                        email.equals(emails) ) {
-                            UserBean userBean = resultBase.getData();
-                            String str = String.format("用户: %s, 邮箱: %s",
-                                    userBean.getUsername(), userBean.getEmail());
-                            Toast.makeText(TextRxJavaActivity.this, str, Toast.LENGTH_SHORT).show();
+                    public void onNext(ResultBase<String> resultBase) {
+                        if (resultBase != null && !TextUtils.isEmpty(resultBase.getData())) {
+                            String newEmail = resultBase.getData();
+                            Toast.makeText(TextRxJavaActivity.this, "修改成功，新邮箱" + newEmail, Toast.LENGTH_SHORT).show();
 
-                        } else if (resultBase != null && TextUtils.isEmpty(resultBase.getMsg()) || resultBase.getStatus() !=200) {
+                        } else if (resultBase != null && !TextUtils.isEmpty(resultBase.getMsg())) {
                             Toast.makeText(TextRxJavaActivity.this, resultBase.getMsg(), Toast.LENGTH_SHORT).show();
                         }
 
@@ -268,6 +275,6 @@ public class TextRxJavaActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
-        service = retrofit.create(NetService.class);
+        service = retrofit.create(NetworkService.class);
     }
 }
