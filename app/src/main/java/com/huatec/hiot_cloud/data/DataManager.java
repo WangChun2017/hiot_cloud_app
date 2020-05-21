@@ -30,7 +30,7 @@ public class DataManager {
      * @param password
      * @return
      */
-    //retorfit登录
+    //登录
     public Observable<ResultBase<LoginResultDTO>> login(String userName, String password) {
         return service.login(userName, password, Constans.LOGIN_CODE_APP);
     }

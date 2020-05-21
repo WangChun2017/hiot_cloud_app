@@ -33,9 +33,9 @@ public class TestNetworkPackActivity extends BaseActivity implements TestNetwork
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_network_pack);
 
+
         //editText
         etToken = findViewById(R.id.et_network_pack_token);
-
 
         //登录
         Button btnLogin = findViewById(R.id.btn_network_pack_login);
@@ -61,7 +61,7 @@ public class TestNetworkPackActivity extends BaseActivity implements TestNetwork
         btnUpdateEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.updateEmail(etToken.getText().toString(), "123456fjdsb@qq.com");
+                presenter.updateEmail(etToken.getText().toString(), "abcdefg789@qq.com");
             }
         });
         //注册
@@ -69,7 +69,7 @@ public class TestNetworkPackActivity extends BaseActivity implements TestNetwork
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.register("zhaoqian", "abc1230", "abcdefg@qq.com");
+                presenter.register("sunli", "abc1230", "abcdefg456@qq.com");
             }
         });
 
