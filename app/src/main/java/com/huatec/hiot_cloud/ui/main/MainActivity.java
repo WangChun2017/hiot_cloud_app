@@ -1,15 +1,15 @@
 package com.huatec.hiot_cloud.ui.main;
 
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.widget.RadioGroup;
+
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.huatec.hiot_cloud.R;
 import com.huatec.hiot_cloud.ui.base.BaseActivity;
 import com.huatec.hiot_cloud.ui.base.BasePresenter;
-import com.huatec.hiot_cloud.utils.Constans;
+import com.huatec.hiot_cloud.utils.Constants;
 
 //实验2.1
 public class MainActivity extends BaseActivity {
@@ -20,23 +20,23 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         final ViewPager vpMain = findViewById(R.id.vp_main);
         vpMain.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
-        vpMain.setOffscreenPageLimit(Constans.MAIN_FRAGMENT_COUNT);
+        vpMain.setOffscreenPageLimit(Constants.MAIN_FRAGMENT_COUNT);
         RadioGroup rgMain = findViewById(R.id.rg_main);
         rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_message:
-                        vpMain.setCurrentItem(Constans.MAIN_VIEWPAGER_INDEX_MESAAGE);
+                        vpMain.setCurrentItem(Constants.MAIN_VIEWPAGER_INDEX_MESAAGE);
                         break;
                     case R.id.rb_equipment:
-                        vpMain.setCurrentItem(Constans.MAIN_VIEWPAGER_INDEX_EQUIPMENT);
+                        vpMain.setCurrentItem(Constants.MAIN_VIEWPAGER_INDEX_EQUIPMENT);
                         break;
                     case R.id.rb_scene:
-                        vpMain.setCurrentItem(Constans.MAIN_VIEWPAGER_INDEX_SCENE);
+                        vpMain.setCurrentItem(Constants.MAIN_VIEWPAGER_INDEX_SCENE);
                         break;
                     case R.id.rb_mine:
-                        vpMain.setCurrentItem(Constans.MAIN_VIEWPAGER_INDEX_MINE);
+                        vpMain.setCurrentItem(Constants.MAIN_VIEWPAGER_INDEX_MINE);
                         break;
                     default:
                         break;

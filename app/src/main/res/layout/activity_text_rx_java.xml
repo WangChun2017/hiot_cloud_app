@@ -39,9 +39,8 @@
         android:text="注册" />
 
     <EditText
-        android:text="对3.2的修改邮箱的代码逻辑进行修改"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:text="对3.2的修改邮箱的代码逻辑进行修改" />
 
 </LinearLayout>

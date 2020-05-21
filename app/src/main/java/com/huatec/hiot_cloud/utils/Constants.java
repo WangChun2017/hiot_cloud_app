@@ -2,7 +2,7 @@ package com.huatec.hiot_cloud.utils;
 /*
 *   常量类
  */
-public class Constans {
+public class Constants {
     public static final int MAIN_FRAGMENT_COUNT = 4;
     public static final int MAIN_VIEWPAGER_INDEX_MESAAGE = 0;
     public static final int MAIN_VIEWPAGER_INDEX_EQUIPMENT = 1;
