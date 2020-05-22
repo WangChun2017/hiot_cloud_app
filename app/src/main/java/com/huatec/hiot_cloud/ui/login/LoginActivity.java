@@ -136,6 +136,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
             LoadingUtil.showLoading(LoginActivity.this, "正在登录...");
             presenter.login(email, password);
 
+
         }
     }
 

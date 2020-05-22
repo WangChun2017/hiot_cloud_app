@@ -90,7 +90,7 @@ public class BasePresenter<V extends BaseView> {
         }
 
         public void onComplete() {
-
+            LoadingUtil.hideLoading();
         }
     }
 }
