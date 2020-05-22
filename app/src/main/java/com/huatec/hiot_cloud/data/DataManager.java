@@ -9,6 +9,7 @@ import com.huatec.hiot_cloud.utils.Constants;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.functions.Consumer;
 
 /**
  * 网络请求封装类
@@ -17,10 +18,12 @@ public class DataManager {
 
 
     private NetworkService service;
+    SharedPreferencesHelper sharedPreferencesHelper;
 
     @Inject
-    public DataManager(NetworkService service) {
+    public DataManager(NetworkService service, SharedPreferencesHelper sharedPreferencesHelper) {
         this.service = service;
+        this.sharedPreferencesHelper = sharedPreferencesHelper;
     }
 
     /**
@@ -32,7 +35,17 @@ public class DataManager {
      */
     //登录
     public Observable<ResultBase<LoginResultDTO>> login(String userName, String password) {
-        return service.login(userName, password, Constants.LOGIN_CODE_APP);
+        return service.login(userName, password, Constants.LOGIN_CODE_APP)
+                .doOnNext(new Consumer<ResultBase<LoginResultDTO>>() {
+                    @Override
+                    public void accept(ResultBase<LoginResultDTO> resultBase) throws Exception {
+                        if (resultBase.getStatus() == Constants.MSG_STATUS_SUCCESS) {
+                            if (resultBase != null && resultBase.getData() != null) {
+                                sharedPreferencesHelper.setUserToken(resultBase.getData().getTokenValue());
+                            }
+                        }
+                    }
+                });
     }
 
     //获取信息

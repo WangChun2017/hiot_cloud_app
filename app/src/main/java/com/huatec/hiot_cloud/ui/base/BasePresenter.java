@@ -2,6 +2,8 @@ package com.huatec.hiot_cloud.ui.base;
 
 import android.util.Log;
 
+import com.huatec.hiot_cloud.utils.LoadingUtil;
+
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -12,7 +14,7 @@ import io.reactivex.schedulers.Schedulers;
     MVP架构presenter层基类
  */
 //实验2.2
-public class BasePresenter <V extends BaseView>{
+public class BasePresenter<V extends BaseView> {
 
     private static final String TAG = "BasePresenter";
     private V view;
@@ -24,8 +26,9 @@ public class BasePresenter <V extends BaseView>{
     public BasePresenter() {
 
     }
-    public void destroy(){
-        if (viewAttached()){
+
+    public void destroy() {
+        if (viewAttached()) {
             view = null;
         }
     }
@@ -34,7 +37,7 @@ public class BasePresenter <V extends BaseView>{
         return view;
     }
 
-    public boolean viewAttached(){
+    public boolean viewAttached() {
         return view != null;
     }
 
@@ -81,9 +84,10 @@ public class BasePresenter <V extends BaseView>{
 
 
         public void onError(Throwable e) {
+            //对话框隐藏
+            LoadingUtil.hideLoading();
             Log.e(TAG, "onError: " + e.getMessage(), e);
         }
-
 
         public void onComplete() {
 
