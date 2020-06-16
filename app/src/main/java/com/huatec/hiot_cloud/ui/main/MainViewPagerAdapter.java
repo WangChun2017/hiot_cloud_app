@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.huatec.hiot_cloud.ui.devicelist.DeviceListFragment;
+import com.huatec.hiot_cloud.ui.mine.MineFragment;
 import com.huatec.hiot_cloud.utils.Constants;
 
 class MainViewPagerAdapter extends FragmentPagerAdapter {
@@ -18,14 +20,13 @@ class MainViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = null;
-        fragment = EquipmentFragment.newInstance();
         switch (position) {
             case Constants.MAIN_VIEWPAGER_INDEX_MESAAGE:
                 //创建messageFrament todo
                 fragment = MessageFragment.newInstance();
                 break;
             case Constants.MAIN_VIEWPAGER_INDEX_EQUIPMENT:
-                fragment = EquipmentFragment.newInstance();
+                fragment = DeviceListFragment.newInstance();
                 break;
             case Constants.MAIN_VIEWPAGER_INDEX_SCENE:
                 fragment = SceneFragment.newInstance();

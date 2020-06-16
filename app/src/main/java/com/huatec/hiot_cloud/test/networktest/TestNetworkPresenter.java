@@ -3,6 +3,7 @@ package com.huatec.hiot_cloud.test.networktest;
 import android.text.TextUtils;
 
 import com.huatec.hiot_cloud.data.DataManager;
+import com.huatec.hiot_cloud.data.bean.UserBean;
 import com.huatec.hiot_cloud.ui.base.BasePresenter;
 
 import javax.inject.Inject;
@@ -36,7 +37,7 @@ public class TestNetworkPresenter extends BasePresenter<TestNetworkPackView> {
      * @param authorization
      */
     public void getUserInfo(String authorization) {
-        subscrib(dataManager.getUserInfo(authorization), new ResquestCallback<ResultBase<UserBean>>() {
+        subscrib(dataManager.getUserInfo(), new ResquestCallback<ResultBase<UserBean>>() {
             @Override
             public void onNext(ResultBase<UserBean> resultBase) {
                 if (resultBase != null && resultBase.getData() != null) {
@@ -58,7 +59,7 @@ public class TestNetworkPresenter extends BasePresenter<TestNetworkPackView> {
      * @param email
      */
     public void updateEmail(String authorization, String email) {
-        subscrib(dataManager.updateEmail(authorization, email), new ResquestCallback<ResultBase<String>>() {
+        subscrib(dataManager.updateEmail(email), new ResquestCallback<ResultBase<String>>() {
             @Override
             public void onNext(ResultBase<String> resultBase) {
                 if (resultBase != null && !TextUtils.isEmpty(resultBase.getData())) {

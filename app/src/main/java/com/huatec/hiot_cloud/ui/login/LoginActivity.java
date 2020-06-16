@@ -135,8 +135,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
             //请求服务端身份验证
             LoadingUtil.showLoading(LoginActivity.this, "正在登录...");
             presenter.login(email, password);
-
-
         }
     }
 
@@ -144,5 +142,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     public void onViewClicked() {
         Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
+        finish();
     }
 }

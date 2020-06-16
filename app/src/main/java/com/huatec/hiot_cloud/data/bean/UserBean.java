@@ -1,13 +1,17 @@
-package com.huatec.hiot_cloud.test.networktest;
+package com.huatec.hiot_cloud.data.bean;
 
 import java.io.Serializable;
 
 public class UserBean implements Serializable {
 
-    private  String username;
-    private  String email;
-    private  String password;
-    private  String userType;
+    private String username;
+    private String email;
+    private String password;
+    private String userType;
+    //相对路径
+    private String img;
+
+
 
     public String getUsername() {
         return username;
@@ -39,5 +43,13 @@ public class UserBean implements Serializable {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }
