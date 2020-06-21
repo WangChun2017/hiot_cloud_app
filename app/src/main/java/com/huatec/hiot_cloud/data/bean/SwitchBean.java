@@ -6,11 +6,17 @@ import java.io.Serializable;
  * 开关通道对象
  */
 public class SwitchBean implements Serializable {
-
+    /**
+     * 下行通道id
+     */
     private String downDataStreamId;
-
+    /**
+     * 通道时间
+     */
     private String timing;
-
+    /**
+     * 通道状态
+     */
     private int status;
 
     public String getDownDataStreamId() {

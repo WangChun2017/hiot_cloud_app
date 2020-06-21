@@ -19,7 +19,7 @@ public class TestNetworkPresenter extends BasePresenter<TestNetworkPackView> {
 
     public void login(String userName, String password) {
 
-        subscrib(dataManager.login(userName, password), new ResquestCallback<ResultBase<LoginResultDTO>>() {
+        subscrib(dataManager.login(userName, password), new RequestCallback<ResultBase<LoginResultDTO>>() {
             @Override
             public void onNext(ResultBase<LoginResultDTO> resultBase) {
                 if (resultBase != null && resultBase.getData() != null) {
@@ -37,7 +37,7 @@ public class TestNetworkPresenter extends BasePresenter<TestNetworkPackView> {
      * @param authorization
      */
     public void getUserInfo(String authorization) {
-        subscrib(dataManager.getUserInfo(), new ResquestCallback<ResultBase<UserBean>>() {
+        subscrib(dataManager.getUserInfo(), new RequestCallback<ResultBase<UserBean>>() {
             @Override
             public void onNext(ResultBase<UserBean> resultBase) {
                 if (resultBase != null && resultBase.getData() != null) {
@@ -59,7 +59,7 @@ public class TestNetworkPresenter extends BasePresenter<TestNetworkPackView> {
      * @param email
      */
     public void updateEmail(String authorization, String email) {
-        subscrib(dataManager.updateEmail(email), new ResquestCallback<ResultBase<String>>() {
+        subscrib(dataManager.updateEmail(email), new RequestCallback<ResultBase<String>>() {
             @Override
             public void onNext(ResultBase<String> resultBase) {
                 if (resultBase != null && !TextUtils.isEmpty(resultBase.getData())) {
@@ -81,7 +81,7 @@ public class TestNetworkPresenter extends BasePresenter<TestNetworkPackView> {
      * @param email
      */
     public void register(String userName, String password, String email) {
-        subscrib(dataManager.register(userName, password, email), new ResquestCallback<ResultBase<UserBean>>() {
+        subscrib(dataManager.register(userName, password, email), new RequestCallback<ResultBase<UserBean>>() {
             @Override
             public void onNext(ResultBase<UserBean> resultBase) {
                 if (resultBase != null && resultBase.getData() != null) {

@@ -20,6 +20,7 @@ import com.huatec.hiot_cloud.injection.PerActivity;
 import com.huatec.hiot_cloud.injection.module.ActivityModule;
 import com.huatec.hiot_cloud.test.mvptest.TestMVPActivity;
 import com.huatec.hiot_cloud.test.networktest.TestNetworkPackActivity;
+import com.huatec.hiot_cloud.ui.datastreamhistory.LineChartActivity;
 import com.huatec.hiot_cloud.ui.devicedetail.DeviceDetailActivity;
 import com.huatec.hiot_cloud.ui.devicelist.DeviceListFragment;
 import com.huatec.hiot_cloud.ui.login.LoginActivity;
@@ -62,9 +63,10 @@ public interface ActivityComponent {
 
     void inject(DeviceDetailActivity deviceDetailActivity);
 
+
+    void inject(LineChartActivity Activity);
+
 //    void inject(MineFragment fragment);
-
-
 
 
     @Component.Builder

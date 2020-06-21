@@ -12,7 +12,7 @@ public class UpdatastreamDataDto implements Serializable {
     /**
      * 上行通道id
      */
-    private String updaDataStreamId;
+    private String upDataStreamId;
     /**
      * 通道名称
      */
@@ -30,12 +30,13 @@ public class UpdatastreamDataDto implements Serializable {
      *
      * @return
      */
-    public String getUpdaDataStreamId() {
-        return updaDataStreamId;
+
+    public String getUpDataStreamId() {
+        return upDataStreamId;
     }
 
-    public void setUpdaDataStreamId(String updaDataStreamId) {
-        this.updaDataStreamId = updaDataStreamId;
+    public void setUpDataStreamId(String upDataStreamId) {
+        this.upDataStreamId = upDataStreamId;
     }
 
     public String getTitle() {

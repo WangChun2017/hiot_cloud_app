@@ -10,21 +10,13 @@ public class DeviceDetailBean {
     /**
      * 设备id
      */
+
     private String deviceId;
-
     private String title;
-
     private String status;
-
     private String deviceimg;
-
     private List<UpdatastreamDataDto> updatastreamDataDtoList;
 
-    /**
-     * get and set 方法
-     *
-     * @return
-     */
     public String getDeviceId() {
         return deviceId;
     }
@@ -64,12 +56,4 @@ public class DeviceDetailBean {
     public void setUpdatastreamDataDtoList(List<UpdatastreamDataDto> updatastreamDataDtoList) {
         this.updatastreamDataDtoList = updatastreamDataDtoList;
     }
-
-    //    public Object getUpdatastreamDataDtoList() {
-//        return updatastreamDataDtoList;
-//    }
-//
-//    public void setUpdatastreamDataDtoList(Object updatastreamDataDtoList) {
-//        this.updatastreamDataDtoList = updatastreamDataDtoList;
-//    }
 }

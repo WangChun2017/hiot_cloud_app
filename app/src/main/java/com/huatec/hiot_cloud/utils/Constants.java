@@ -62,6 +62,14 @@ public class Constants {
      * 开关状态关
      */
     public static final int SWITCH_STATUS_OFF = 0;
+    /**
+     * 通道id参数名称
+     */
+    public static final String INTENT_EXTRA_UP_DATASTREAM_ID = "INTENT_EXTRA_UP_DATASTREAM_ID";
+    /**
+     * 默认每页换回的数据
+     */
+    public static final int DEFAULT_DATASTREAM_LIMIT = 10;
 
     public static String MULTIPART_FORM_DATA = "multipart/form-data";
     public static final int MSG_STATUS_TOKEN_OUT = -100;

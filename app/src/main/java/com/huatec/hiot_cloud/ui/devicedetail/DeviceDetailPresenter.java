@@ -26,27 +26,28 @@ class DeviceDetailPresenter extends BasePresenter<DeviceDetailView> {
      * @param deviceId
      */
     public void loadDeviceDetail(String deviceId) {
-        subscrib(dataManager.getDeviceDetail(deviceId), new ResquestCallback<ResultBase<DeviceDetailBean>>() {
+        subscrib(dataManager.getDeviceDetail(deviceId), new RequestCallback<ResultBase<DeviceDetailBean>>() {
             @Override
             public void onNext(ResultBase<DeviceDetailBean> resultBase) {
                 super.onNext(resultBase);
                 if (resultBase.getData() == null) {
                     getView().showMessage("无设备详情");
                 }
+
                 getView().setDeviceDetail(resultBase.getData());
             }
         });
     }
 
     /**
-     * 控制通道开关状态
+     * 控制开关通道状态
      *
-     * @param downDataStream
+     * @param downDataStreamId
      * @param isChecked
      */
-    public void changeSwitch(String downDataStream, boolean isChecked) {
+    public void changeSwitch(String downDataStreamId, boolean isChecked) {
         int status = isChecked ? Constants.SWITCH_STATUS_ON : Constants.SWITCH_STATUS_OFF;
-        subscrib(dataManager.changeSwitch(downDataStream, status), new ResquestCallback<ResultBase>() {
+        subscrib(dataManager.changeSwitch(downDataStreamId, status), new RequestCallback<ResultBase>() {
             @Override
             public void onNext(ResultBase resultBase) {
                 super.onNext(resultBase);

@@ -27,7 +27,7 @@ class DeviceListPresenter extends BasePresenter<DeviceListView> {
      * 加载设备列表
      */
     public void loadDeviceList() {
-        subscrib(dataManager.listBindedDevice(Constants.DEVICE_STATUS_BINDED), new ResquestCallback<ResultBase<List<DeviceBean>>>() {
+        subscrib(dataManager.listBindedDevice(Constants.DEVICE_STATUS_BINDED), new RequestCallback<ResultBase<List<DeviceBean>>>() {
             @Override
             public void onNext(ResultBase<List<DeviceBean>> listResultBase) {
                 super.onNext(listResultBase);

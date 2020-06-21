@@ -1,6 +1,8 @@
 package com.huatec.hiot_cloud.ui.devicedetail;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -15,6 +17,7 @@ import com.huatec.hiot_cloud.data.bean.DeviceDetailBean;
 import com.huatec.hiot_cloud.data.bean.SwitchBean;
 import com.huatec.hiot_cloud.data.bean.UpdatastreamDataDto;
 import com.huatec.hiot_cloud.ui.base.BaseActivity;
+import com.huatec.hiot_cloud.ui.datastreamhistory.LineChartActivity;
 import com.huatec.hiot_cloud.utils.Constants;
 import com.huatec.hiot_cloud.utils.ImageUtils;
 
@@ -22,10 +25,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceDetailPresenter> implements DeviceDetailView {
 
-
+    private static final String TAG = "DeviceDetailActivity";
     @Inject
     DeviceDetailPresenter presenter;
 
@@ -53,10 +57,18 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
     @BindView(R.id.switch_data_stream)
     Switch switchDataStream;
 
-    @BindView(R.id.srl_deivce_detail)
-    SwipeRefreshLayout srlDeivceDetail;
+    @BindView(R.id.srl_device_detail)
+    SwipeRefreshLayout srlDeviceDetail;
 
+    /**
+     * 设备id
+     */
     private String deviceId;
+
+    /**
+     * 当前上行通道id
+     */
+    private String upDataStreamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +77,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
         ButterKnife.bind(this);
         initView();
         deviceId = getIntent().getStringExtra(Constants.INTENT_EXTRA_DEVICE_ID);
-
     }
+
 
     @Override
     public DeviceDetailPresenter createPresenter() {
@@ -78,38 +90,36 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
         getActivityComponent().inject(this);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         loadDeviceDetail();
     }
 
+
     /**
      * 初始化控件
      */
     private void initView() {
         //下拉刷新
-        srlDeivceDetail.setColorSchemeColors(getResources().getColor(android.R.color.holo_red_dark),
+        srlDeviceDetail.setColorSchemeColors(getResources().getColor(android.R.color.holo_red_dark),
                 getResources().getColor(android.R.color.holo_blue_dark),
                 getResources().getColor(android.R.color.holo_green_dark)
         );
-        srlDeivceDetail.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+        srlDeviceDetail.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //加载设备详情
                 loadDeviceDetail();
-
             }
         });
 
-        //tooBar工具栏
+        //toolbar
         setSupportActionBar(toolbarDevice);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbarDevice.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 finish();
             }
         });
@@ -119,37 +129,34 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
      * 加载设备详情
      */
     private void loadDeviceDetail() {
+        srlDeviceDetail.setRefreshing(true);
 
-        srlDeivceDetail.setRefreshing(true);
         presenter.loadDeviceDetail(deviceId);
-        srlDeivceDetail.setRefreshing(false);
 
+        srlDeviceDetail.setRefreshing(false);
 
     }
 
     @Override
     public void setDeviceDetail(DeviceDetailBean data) {
-
         if (data == null) {
             return;
         }
-        tvDataStreamType.setText(data.getTitle());
-        tvDataStreamType.setText(Constants.DEVICE_STATUS_ACTIVITY.equals(data.getStatus()) ? "已激活" : "未激活");
-        //显示图片
+        upDataStreamId = null;
+        tvDeviceTitle.setText(data.getTitle());
+        tvDeviceState.setText(Constants.DEVICE_STATUS_ACTIVITY.equals(data.getStatus()) ? "已激活" : "未激活");
         ImageUtils.show(this, ivDeviceDetail, ImageUtils.getFullUrl(data.getDeviceimg()));
 
-
-        //通道解析
+        //解析通道信息
         switchDataStream.setVisibility(View.GONE);
         if (data.getUpdatastreamDataDtoList() != null && !data.getUpdatastreamDataDtoList().isEmpty()) {
             UpdatastreamDataDto updatastreamDataDto = data.getUpdatastreamDataDtoList().get(0);
-
             if (updatastreamDataDto == null) {
                 return;
             }
-//            Constants.DATA_STREAM_TYPE_SWITCH.equals(updatastreamDataDto.getData_type())?"通道类型"
 
             if (Constants.DATA_STREAM_TYPE_SWITCH.equals(updatastreamDataDto.getData_type())) {
+                upDataStreamId = updatastreamDataDto.getUpDataStreamId();
                 tvDataStreamType.setText("开关通道");
                 switchDataStream.setVisibility(View.VISIBLE);
                 if (updatastreamDataDto.getDataList() != null && !updatastreamDataDto.getDataList().isEmpty()) {
@@ -157,9 +164,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
                     if (switchBean == null) {
                         return;
                     }
-                    /**
-                     * 如果开关状态开
-                     */
+                    //如果开关状态开
                     if (Constants.SWITCH_STATUS_ON == switchBean.getStatus()) {
                         ivSwitch.setImageResource(R.drawable.icon_on);
                         switchDataStream.setChecked(true);
@@ -167,7 +172,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
                         ivSwitch.setImageResource(R.drawable.icon_off);
                         switchDataStream.setChecked(false);
                     }
-
                     //设置switch事件
                     switchDataStream.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
@@ -178,5 +182,18 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
                 }
             }
         }
+    }
+
+    @OnClick(R.id.iv_data_stream_history)
+    public void onViewClicked() {
+
+//        if (TextUtils.isEmpty(upDataStreamId)) {
+//            return;
+//        }
+
+        Intent intent = new Intent(this, LineChartActivity.class);
+        intent.putExtra(Constants.INTENT_EXTRA_UP_DATASTREAM_ID, upDataStreamId);
+        Log.d(TAG, "onViewClicked: " + upDataStreamId);
+        startActivity(intent);
     }
 }

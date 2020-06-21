@@ -3,6 +3,7 @@ package com.huatec.hiot_cloud.data;
 
 import com.huatec.hiot_cloud.data.bean.DeviceBean;
 import com.huatec.hiot_cloud.data.bean.DeviceDetailBean;
+import com.huatec.hiot_cloud.data.bean.UpDataStreamSwitchBean;
 import com.huatec.hiot_cloud.data.bean.UserBean;
 import com.huatec.hiot_cloud.test.networktest.LoginResultDTO;
 import com.huatec.hiot_cloud.test.networktest.ResultBase;
@@ -64,16 +65,13 @@ public interface NetworkService {
      */
 
     @POST("/holder/device/{device_pk}")
-    Observable<ResultBase> bindDevice(@Path("device_pk") String device_pk,
-                                      @Header("Authorization") String authorization);
+    Observable<ResultBase> bindDevicec(@Path("device_pk") String device_pk, @Header("Authorization") String authorization);
 
     @GET("/holder/user")
-    Observable<ResultBase<List<DeviceBean>>> listBindedDevice(@Query("bonding") int bonding,
-                                                              @Header("Authorization") String authorization);
+    Observable<ResultBase<List<DeviceBean>>> listBindedDevice(@Query("bonding") int bonding, @Header("Authorization") String authorization);
 
     @GET("/device/{id}")
-    Observable<ResultBase<DeviceDetailBean>> getDeviceDetail(@Path("id") String deviceId,
-                                                             @Header("Authorization") String authorization);
+    Observable<ResultBase<DeviceDetailBean>> getDeviceDetail(@Path("id") String deviceId, @Header("Authorization") String authorization);
 
     /**
      * 控制通道开关
@@ -87,5 +85,20 @@ public interface NetworkService {
     Observable<ResultBase> changeSwitch(@Path("downdatastream_pk") String dataStreamId,
                                         @Query("status") int status,
                                         @Header("Authorization") String authorization);
+
+    /**
+     * 获取上行通道历史数据
+     *
+     * @param skip
+     * @param limit
+     * @param updatastreamId
+     * @param authorization
+     * @return
+     */
+    @GET("/mongo/download/{updatastreamId}/{skip}/{limit}/List")
+    Observable<ResultBase<List<UpDataStreamSwitchBean>>> getUpDataStreamHistory(@Path("skip") int skip,
+                                                                                @Path("limit") int limit,
+                                                                                @Path("updatastreamId") String updatastreamId,
+                                                                                @Header("Authorization") String authorization);
 
 }

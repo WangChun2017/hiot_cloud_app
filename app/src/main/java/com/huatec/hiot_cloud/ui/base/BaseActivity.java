@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.TaskStackBuilder;
 
 import com.huatec.hiot_cloud.App;
 import com.huatec.hiot_cloud.injection.component.ActivityComponent;
@@ -35,17 +33,17 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         if (presenter != null) {
             presenter.setView((V) this);
         }
-
     }
+
 
     public abstract P createPresenter();
 
     public abstract void injectIndependies();
 
-    @Override
-    public void onPrepareSupportNavigateUpTaskStack(@NonNull TaskStackBuilder builder) {
-        super.onPrepareSupportNavigateUpTaskStack(builder);
-    }
+//    @Override
+//    public void onPrepareSupportNavigateUpTaskStack(@NonNull TaskStackBuilder builder) {
+//        super.onPrepareSupportNavigateUpTaskStack(builder);
+//    }
 
     @Override
     protected void onDestroy() {
@@ -101,7 +99,6 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     /**
      * 打开新界面，关闭本界面
-     *
      * @param cls
      */
     protected void startActivity(Class<?> cls) {
@@ -112,19 +109,16 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
 
     /**
      * 打开新界面，保留本界面
-     *
      * @param cls
      */
     protected void startActivityWithoutFinish(Class<?> cls) {
         Intent intent = new Intent(this, cls);
         startActivity(intent);
-        finish();
     }
 
     @Override
     public void tokenOut() {
         startActivity(LoginActivity.class);
-
     }
 }
 

@@ -30,7 +30,7 @@ class ScanPresenter extends BasePresenter<ScanView> {
      */
     public void bindDevice(String deviceId) {
         Log.d(TAG, "bindDevice: " + deviceId);
-        subscrib(dataManager.bindDevice(deviceId), new ResquestCallback<ResultBase>() {
+        subscrib(dataManager.bindDevice(deviceId), new RequestCallback<ResultBase>() {
             @Override
             public void onNext(ResultBase resultBase) {
                 super.onNext(resultBase);

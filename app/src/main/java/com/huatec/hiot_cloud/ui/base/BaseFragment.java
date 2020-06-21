@@ -15,45 +15,33 @@ import com.huatec.hiot_cloud.ui.login.LoginActivity;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment <V extends BaseView, P extends BasePresenter<V>> extends Fragment implements BaseView {
+public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V>> extends Fragment implements BaseView {
+
     private P presenter;
 
     public abstract P createPresenter();
 
-    public abstract  void injectDependencies();
+    public abstract void injectDependencies();
 
-    public abstract View initView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+    public abstract View initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = initView(inflater,container,savedInstanceState);
+        View view = initView(inflater, container, savedInstanceState);
         injectDependencies();
         return view;
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         presenter = createPresenter();
-        if (presenter != null){
-            presenter.setView((V)this);
+        if (presenter != null) {
+            presenter.setView((V) this);
         }
         ButterKnife.bind(this, view);
-        super.onViewCreated(view,savedInstanceState);
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        if (presenter != null){
-            presenter.destroy();
-        }
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -61,16 +49,27 @@ public abstract class BaseFragment <V extends BaseView, P extends BasePresenter<
         super.onPause();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (presenter != null) {
+            presenter.destroy();
+        }
+    }
 
     @Override
     public void showMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
-
     /**
      * 打开新界面，关闭本界面
-     *
      * @param cls
      */
     protected void startActivity(Class<?> cls) {
@@ -81,18 +80,15 @@ public abstract class BaseFragment <V extends BaseView, P extends BasePresenter<
 
     /**
      * 打开新界面，保留本界面
-     *
      * @param cls
      */
     protected void startActivityWithoutFinish(Class<?> cls) {
         Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
-        getActivity().finish();
     }
 
     @Override
     public void tokenOut() {
         startActivity(LoginActivity.class);
-
     }
 }

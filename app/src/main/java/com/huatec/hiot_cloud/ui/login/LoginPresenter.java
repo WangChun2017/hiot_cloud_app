@@ -29,7 +29,7 @@ class LoginPresenter extends BasePresenter<LoginView> {
      * @param password
      */
     public void login(String email, String password) {
-        subscrib(dataManager.login(email, password), new ResquestCallback<ResultBase<LoginResultDTO>>() {
+        subscrib(dataManager.login(email, password), new RequestCallback<ResultBase<LoginResultDTO>>() {
             @Override
             public void onNext(ResultBase<LoginResultDTO> resultBase) {
 

@@ -21,7 +21,7 @@ public class MinePresenter extends BasePresenter<MineView> {
      * 加载用户信息
      */
     public void loadUserInfo() {
-        subscrib(dataManager.getUserInfo(), new ResquestCallback<ResultBase<UserBean>>() {
+        subscrib(dataManager.getUserInfo(), new RequestCallback<ResultBase<UserBean>>() {
             @Override
             public void onNext(ResultBase<UserBean> resultBase) {
                 if (resultBase == null) {
@@ -49,7 +49,7 @@ public class MinePresenter extends BasePresenter<MineView> {
     }
 
     public void uploadImage(String filePath) {
-        subscrib(dataManager.uploadImage(filePath), new ResquestCallback<ResultBase<String>>() {
+        subscrib(dataManager.uploadImage(filePath), new RequestCallback<ResultBase<String>>() {
             @Override
             public void onNext(ResultBase<String> resultBase) {
                 if (resultBase == null) {
@@ -81,7 +81,7 @@ public class MinePresenter extends BasePresenter<MineView> {
      * 注销
      */
     public void logout() {
-        subscrib(dataManager.logout(), new ResquestCallback<ResultBase>() {
+        subscrib(dataManager.logout(), new RequestCallback<ResultBase>() {
             @Override
             public void onNext(ResultBase resultBase) {
                 if (resultBase == null) {
