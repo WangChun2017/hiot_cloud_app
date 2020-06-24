@@ -1,4 +1,4 @@
-package com.huatec.hiot_cloud.ui.datastreamhistory;
+package com.huatec.hiot_cloud.ui.switchdatastreamhistory;
 
 import android.os.Bundle;
 import android.util.Log;

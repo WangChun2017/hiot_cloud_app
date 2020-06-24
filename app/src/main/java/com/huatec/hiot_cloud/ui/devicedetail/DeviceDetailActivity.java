@@ -2,7 +2,7 @@ package com.huatec.hiot_cloud.ui.devicedetail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -17,7 +17,8 @@ import com.huatec.hiot_cloud.data.bean.DeviceDetailBean;
 import com.huatec.hiot_cloud.data.bean.SwitchBean;
 import com.huatec.hiot_cloud.data.bean.UpdatastreamDataDto;
 import com.huatec.hiot_cloud.ui.base.BaseActivity;
-import com.huatec.hiot_cloud.ui.datastreamhistory.LineChartActivity;
+import com.huatec.hiot_cloud.ui.gpsdatastreamhistory.GpsDataStreamHistoryActivity;
+import com.huatec.hiot_cloud.ui.switchdatastreamhistory.LineChartActivity;
 import com.huatec.hiot_cloud.utils.Constants;
 import com.huatec.hiot_cloud.utils.ImageUtils;
 
@@ -69,6 +70,10 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
      * 当前上行通道id
      */
     private String upDataStreamId;
+    /**
+     * 当前通道类型
+     */
+    private String upDataStreamType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +159,11 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
             if (updatastreamDataDto == null) {
                 return;
             }
+            upDataStreamType = updatastreamDataDto.getData_type();
+            if (Constants.DATA_STREAM_TYPE_GPS.equals(updatastreamDataDto.getData_type())) {
+                upDataStreamId = updatastreamDataDto.getUpDataStreamId();
+                tvDataStreamType.setText("GPS通道");
+            }
 
             if (Constants.DATA_STREAM_TYPE_SWITCH.equals(updatastreamDataDto.getData_type())) {
                 upDataStreamId = updatastreamDataDto.getUpDataStreamId();
@@ -182,18 +192,27 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailView, DeviceD
                 }
             }
         }
+
     }
 
     @OnClick(R.id.iv_data_stream_history)
     public void onViewClicked() {
-
-//        if (TextUtils.isEmpty(upDataStreamId)) {
-//            return;
-//        }
-
-        Intent intent = new Intent(this, LineChartActivity.class);
-        intent.putExtra(Constants.INTENT_EXTRA_UP_DATASTREAM_ID, upDataStreamId);
-        Log.d(TAG, "onViewClicked: " + upDataStreamId);
-        startActivity(intent);
+        if (TextUtils.isEmpty(upDataStreamId)) {
+            return;
+        }
+        //打开开关可视化界面
+        if (Constants.DATA_STREAM_TYPE_SWITCH.equals(upDataStreamType)) {
+            Intent intent = new Intent(this, LineChartActivity.class);
+            intent.putExtra(Constants.INTENT_EXTRA_UP_DATASTREAM_ID, upDataStreamId);
+            startActivity(intent);
+            return;
+        }
+        //打开gps数据可视化界面
+        if (Constants.DATA_STREAM_TYPE_GPS.equals(upDataStreamType)) {
+            Intent intent = new Intent(this, GpsDataStreamHistoryActivity.class);
+            intent.putExtra(Constants.INTENT_EXTRA_UP_DATASTREAM_ID, upDataStreamId);
+            startActivity(intent);
+            return;
+        }
     }
 }

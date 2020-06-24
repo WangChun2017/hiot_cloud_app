@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.huatec.hiot_cloud.data.bean.DeviceBean;
 import com.huatec.hiot_cloud.data.bean.DeviceDetailBean;
+import com.huatec.hiot_cloud.data.bean.UpDataStreamGpsBean;
 import com.huatec.hiot_cloud.data.bean.UpDataStreamSwitchBean;
 import com.huatec.hiot_cloud.data.bean.UserBean;
 import com.huatec.hiot_cloud.test.networktest.LoginResultDTO;
@@ -162,7 +163,17 @@ public class DataManager {
      * @return
      */
 
-    public Observable<ResultBase<List<UpDataStreamSwitchBean>>> getUpDataStreamHistory(String upDataStreamId) {
-        return service.getUpDataStreamHistory(0, Constants.DEFAULT_DATASTREAM_LIMIT, upDataStreamId, sharedPreferencesHelper.getUserToken());
+    public Observable<ResultBase<List<UpDataStreamSwitchBean>>> getSwitchUpDataStreamHistory(String upDataStreamId) {
+        return service.getSwitchUpDataStreamHistory(0, Constants.DEFAULT_DATASTREAM_LIMIT, upDataStreamId, sharedPreferencesHelper.getUserToken());
+    }
+
+    /**
+     * 获取GPS通道历史数据
+     *
+     * @param upDataStreamId
+     * @return
+     */
+    public Observable<ResultBase<List<UpDataStreamGpsBean>>> getGpsUpDataStreamHistory(String upDataStreamId) {
+        return service.getGpsUpDataStreamHistory(0, Constants.DEFAULT_DATASTREAM_LIMIT, upDataStreamId, sharedPreferencesHelper.getUserToken());
     }
 }

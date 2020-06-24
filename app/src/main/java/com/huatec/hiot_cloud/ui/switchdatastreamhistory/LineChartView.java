@@ -1,4 +1,4 @@
-package com.huatec.hiot_cloud.ui.datastreamhistory;
+package com.huatec.hiot_cloud.ui.switchdatastreamhistory;
 
 import com.huatec.hiot_cloud.data.bean.UpDataStreamSwitchBean;
 import com.huatec.hiot_cloud.ui.base.BaseView;
